@@ -12,6 +12,43 @@ const brands = [
   'Converse'
 ];
 
+class Shoe {
+  final String name;
+  final String image;
+  final double price;
+  final Color color;
+
+  const Shoe({
+    this.name,
+    this.image,
+    this.price,
+    this.color,
+  });
+}
+
+const shoes = [
+  const Shoe(
+      name: 'NIKE EPICT-REACT',
+      price: 130.00,
+      image: 'images/shoes/1.png',
+      color: Color(0xFF5574b9)),
+  const Shoe(
+      name: 'NIKE AIR-MAX',
+      price: 130.00,
+      image: 'images/shoes/2.png',
+      color: Color(0xFF52b8c3)),
+  const Shoe(
+      name: 'NIKE AIR-270',
+      price: 150.00,
+      image: 'images/shoes/3.png',
+      color: Color(0xFFE3AD9B)),
+  const Shoe(
+      name: 'NIKE EPICT-REACTII',
+      price: 160.00,
+      image: 'images/shoes/4.png',
+      color: Color(0xFF444547)),
+];
+
 void main() {
   runApp(MyApp());
 }
@@ -113,6 +150,25 @@ class ColumnBody extends StatelessWidget {
               ),
               SizedBox(
                 height: size.maxHeight * 0.3,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: shoes.length,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      width: size.maxWidth * 0.4,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Card(
+                          elevation: 10,
+                          // child: Image.asset(shoes[index].image),
+                          child: Stack(
+                            children: [Text("Hello")],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           ),
