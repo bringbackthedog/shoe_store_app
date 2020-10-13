@@ -170,8 +170,26 @@ class ColumnBody extends StatelessWidget {
                               // log(constraints.maxWidth.toString());
                               return Stack(
                                 children: [
+                                  RotatedBox(
+                                    quarterTurns: 3,
+                                    child: Container(
+                                      width: 60,
+                                      height: 27,
+                                      color: Colors.pink,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'NEW',
+                                          style: GoogleFonts.roboto(
+                                              // fontSize:
+                                              color: Colors.white),
+                                          // textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                   Positioned(
-                                    top: 30,
+                                    top: 23,
                                     left: 45,
                                     height: 90,
                                     child: Transform.rotate(
@@ -180,11 +198,21 @@ class ColumnBody extends StatelessWidget {
                                             Image.asset('images/shoes/1.png')),
                                   ),
                                   Positioned(
-                                    top: 120,
+                                    top: 105,
                                     width: constraints.maxWidth,
                                     child: Text(
                                       shoes[index].name,
                                       textAlign: TextAlign.center,
+                                      style: GoogleFonts.roboto(fontSize: 16),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 125,
+                                    width: constraints.maxWidth,
+                                    child: Text(
+                                      "\$${shoes[index].price.toString()}",
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.roboto(fontSize: 15),
                                     ),
                                   ),
                                 ],
