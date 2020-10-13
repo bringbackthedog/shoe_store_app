@@ -159,13 +159,41 @@ class ColumnBody extends StatelessWidget {
                       return Stack(
                         children: [
                           //left menu
-
                           Positioned(
                             left: 0,
                             width: constraints.maxWidth * 0.15,
                             height: constraints.maxHeight,
-                            child: Column(
-                              children: [Text('Column1')],
+                            child: RotatedBox(
+                              quarterTurns: 3,
+                              child: SizedBox.expand(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      leftMenu[0],
+                                      style: GoogleFonts.roboto(
+                                          color: Colors.black, //New
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      leftMenu[1],
+                                      style: GoogleFonts.roboto(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(leftMenu[2],
+                                        style: GoogleFonts.roboto(
+                                            color: Colors.grey,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                           //main shoe list
