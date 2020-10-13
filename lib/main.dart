@@ -24,38 +24,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: buildAppBar(context),
         bottomNavigationBar: buildBottomNavigationBar(),
-        body: SizedBox.expand(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 0.0,
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      // width: constraints.maxWidth,
-                      height: constraints.maxHeight,
-                      // height: size.height * 0.2,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 20.0),
-                              child: Card(
-                                child: Text(brands[index]),
-                              ),
-                            );
-                          }),
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
+        body: ColumnBody(),
       ),
     );
   }
@@ -119,6 +88,44 @@ class MyApp extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class ColumnBody extends StatelessWidget {
+  const ColumnBody({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(children: [
+        SizedBox(
+          height: size.height * 0.05,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: brands.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: InkWell(
+                  onTap: () {},
+                  child: Text(
+                    brands[index],
+                    style: GoogleFonts.roboto(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: index == 0 ? Colors.black : Colors.grey),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ]),
     );
   }
 }
