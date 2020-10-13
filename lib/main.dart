@@ -170,6 +170,13 @@ class ColumnBody extends StatelessWidget {
                               // log(constraints.maxWidth.toString());
                               return Stack(
                                 children: [
+                                  Align(
+                                    alignment: Alignment.topRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Icon(Icons.favorite_border),
+                                    ),
+                                  ),
                                   RotatedBox(
                                     quarterTurns: 3,
                                     child: Container(
