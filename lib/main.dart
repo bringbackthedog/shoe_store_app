@@ -99,33 +99,50 @@ class ColumnBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(children: [
-        SizedBox(
-          height: size.height * 0.05,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: brands.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: InkWell(
-                  onTap: () {},
-                  child: Text(
-                    brands[index],
-                    style: GoogleFonts.roboto(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: index == 0 ? Colors.black : Colors.grey),
-                  ),
-                ),
-              );
-            },
+    // final size = MediaQuery.of(context).size;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final size = constraints;
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              buildTopMenu(size),
+              SizedBox(
+                height: size.maxHeight * 0.65,
+              ),
+              SizedBox(
+                height: size.maxHeight * 0.3,
+              ),
+            ],
           ),
-        ),
-      ]),
+        );
+      },
+    );
+  }
+
+  SizedBox buildTopMenu(BoxConstraints size) {
+    return SizedBox(
+      height: size.maxHeight * 0.05,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: brands.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: InkWell(
+              onTap: () {},
+              child: Text(
+                brands[index],
+                style: GoogleFonts.roboto(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: index == 0 ? Colors.black : Colors.grey),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
