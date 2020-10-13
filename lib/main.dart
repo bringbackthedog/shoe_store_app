@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -155,14 +158,38 @@ class ColumnBody extends StatelessWidget {
                   itemCount: shoes.length,
                   itemBuilder: (context, index) {
                     return SizedBox(
-                      width: size.maxWidth * 0.4,
+                      width: size.maxWidth * 0.45,
+                      height: size.maxHeight * 0.65,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: Card(
                           elevation: 10,
                           // child: Image.asset(shoes[index].image),
-                          child: Stack(
-                            children: [Text("Hello")],
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              // log(constraints.maxWidth.toString());
+                              return Stack(
+                                children: [
+                                  Positioned(
+                                    top: 30,
+                                    left: 45,
+                                    height: 90,
+                                    child: Transform.rotate(
+                                        angle: math.pi / 10,
+                                        child:
+                                            Image.asset('images/shoes/1.png')),
+                                  ),
+                                  Positioned(
+                                    top: 120,
+                                    width: constraints.maxWidth,
+                                    child: Text(
+                                      shoes[index].name,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ),
                       ),
