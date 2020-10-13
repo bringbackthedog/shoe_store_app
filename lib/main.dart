@@ -15,6 +15,8 @@ const brands = [
   'Converse'
 ];
 
+const leftMenu = ['New', 'Featured', 'Upcoming'];
+
 class Shoe {
   final String name;
   final String image;
@@ -148,94 +150,128 @@ class ColumnBody extends StatelessWidget {
           child: Column(
             children: [
               buildTopMenu(size),
+              //center list
               SizedBox(
-                height: size.maxHeight * 0.65,
-              ),
-              SizedBox(
-                height: size.maxHeight * 0.3,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: shoes.length,
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      width: size.maxWidth * 0.45,
-                      height: size.maxHeight * 0.65,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Card(
-                          elevation: 10,
-                          // child: Image.asset(shoes[index].image),
-                          child: LayoutBuilder(
-                            builder: (context, constraints) {
-                              // log(constraints.maxWidth.toString());
-                              return Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Icon(Icons.favorite_border),
-                                    ),
-                                  ),
-                                  RotatedBox(
-                                    quarterTurns: 3,
-                                    child: Container(
-                                      width: 60,
-                                      height: 27,
-                                      color: Colors.pink,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'NEW',
-                                          style: GoogleFonts.roboto(
-                                              // fontSize:
-                                              color: Colors.white),
-                                          // textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 23,
-                                    left: 45,
-                                    height: 90,
-                                    child: Transform.rotate(
-                                        angle: math.pi / 10,
-                                        child:
-                                            Image.asset('images/shoes/1.png')),
-                                  ),
-                                  Positioned(
-                                    top: 105,
-                                    width: constraints.maxWidth,
-                                    child: Text(
-                                      shoes[index].name,
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.roboto(fontSize: 16),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 125,
-                                    width: constraints.maxWidth,
-                                    child: Text(
-                                      "\$${shoes[index].price.toString()}",
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.roboto(fontSize: 15),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
+                  height: size.maxHeight * 0.65,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      // log(constraints.maxWidth.toString());
+                      return Stack(
+                        children: [
+                          //left menu
+
+                          Positioned(
+                            left: 0,
+                            width: constraints.maxWidth * 0.15,
+                            height: constraints.maxHeight,
+                            child: Column(
+                              children: [Text('Column1')],
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+                          //main shoe list
+                          Positioned(
+                            // left: 25,
+                            left: constraints.maxWidth * 0.2,
+                            width: constraints.maxWidth * 0.8,
+                            height: constraints.maxHeight,
+
+                            child: Column(
+                              children: [Text('Column2')],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  )),
+              //bottom list
+              buildBottomMenu(size),
             ],
           ),
         );
       },
+    );
+  }
+
+  SizedBox buildBottomMenu(BoxConstraints size) {
+    return SizedBox(
+      height: size.maxHeight * 0.3,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: shoes.length,
+        itemBuilder: (context, index) {
+          return SizedBox(
+            width: size.maxWidth * 0.45,
+            height: size.maxHeight * 0.65,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Card(
+                elevation: 10,
+                // child: Image.asset(shoes[index].image),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    // log(constraints.maxWidth.toString());
+                    return Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Icon(Icons.favorite_border),
+                          ),
+                        ),
+                        RotatedBox(
+                          quarterTurns: 3,
+                          child: Container(
+                            width: 60,
+                            height: 27,
+                            color: Colors.pink,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                'NEW',
+                                style: GoogleFonts.roboto(
+                                    // fontSize:
+                                    color: Colors.white),
+                                // textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 23,
+                          left: 45,
+                          height: 90,
+                          child: Transform.rotate(
+                              angle: math.pi / 10,
+                              child: Image.asset('images/shoes/1.png')),
+                        ),
+                        Positioned(
+                          top: 105,
+                          width: constraints.maxWidth,
+                          child: Text(
+                            shoes[index].name,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.roboto(fontSize: 16),
+                          ),
+                        ),
+                        Positioned(
+                          top: 125,
+                          width: constraints.maxWidth,
+                          child: Text(
+                            "\$${shoes[index].price.toString()}",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.roboto(fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
