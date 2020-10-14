@@ -210,13 +210,29 @@ class ColumnBody extends StatelessWidget {
                           ),
                           //main shoe list
                           Positioned(
-                            // left: 25,
-                            left: constraints.maxWidth * 0.2,
-                            width: constraints.maxWidth * 0.8,
-                            height: constraints.maxHeight,
+                            left: 65,
+                            top: 50,
+                            // left: constraints.maxWidth * 0.2,
+                            // top: constraints.maxHeight
+                            // width: constraints.maxWidth * 0.8,
+                            // height: constraints.maxHeight,
 
                             child: Column(
-                              children: [Text('Column2')],
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 270,
+                                  width: 230,
+                                  child: Card(
+                                    elevation: 8,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    // child: const SizedBox.expand()
+                                    // child: Text('Column2'),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
