@@ -252,16 +252,21 @@ class _ColumnBodyState extends State<ColumnBody> {
                                   alignment: Alignment.center,
                                   // alignment: ,
                                   transform: transform,
-                                  child: Align(
-                                    child: Card(
-                                      elevation: 8,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      color: shoes[index].color,
-                                      child: SizedBox(
-                                        height: 270,
-                                        width: 250,
+                                  child: Center(
+                                    child: Container(
+                                      height: 270,
+                                      width: 250,
+                                      child: Card(
+                                        elevation: 8,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        color: shoes[index].color,
+                                        // child: SizedBox(
+                                        // height: 270,
+                                        // width: 250,
+                                        // ),
                                       ),
                                     ),
                                   ),
