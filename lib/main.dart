@@ -196,94 +196,68 @@ class _ColumnBodyState extends State<ColumnBody> {
                           //left menu
                           Positioned(
                             left: 0,
-                            width: constraints.maxWidth * 0.15,
+                            width: 15,
                             height: constraints.maxHeight,
                             child: RotatedBox(
                               quarterTurns: 3,
-                              child: SizedBox.expand(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      leftMenu[0],
-                                      style: GoogleFonts.roboto(
-                                          color: Colors.black, //New
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      leftMenu[1],
-                                      style: GoogleFonts.roboto(
-                                        color: Colors.grey,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    leftMenu[0],
+                                    style: GoogleFonts.roboto(
+                                        color: Colors.black, //New
                                         fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    leftMenu[1],
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.grey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    Text(leftMenu[2],
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.grey,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold)),
-                                  ],
-                                ),
+                                  ),
+                                  Text(leftMenu[2],
+                                      style: GoogleFonts.roboto(
+                                          color: Colors.grey,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold)),
+                                ],
                               ),
                             ),
                           ),
                           //main shoe list
                           Positioned(
-                            left: 65,
+                            left: 0,
                             top: 50,
                             // left: constraints.maxWidth * 0.2,
                             // top: constraints.maxHeight
                             // width: constraints.maxWidth * 0.8,
                             // height: constraints.maxHeight,
 
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 270,
-                                  width: 250,
-                                  child: PageView.builder(
-                                    controller: _pageController,
-                                    itemCount: shoes.length,
-                                    itemBuilder: (context, index) {
-                                      //t is the 'time' or the speed for the animation
-                                      //lerp double uses a + (b - a) * t;
+                            child: Container(
+                              width: size.maxWidth,
+                              height: 270,
+                              child: PageView.builder(
+                                controller: _pageController,
+                                itemCount: shoes.length,
+                                itemBuilder: (context, index) {
+                                  final transform =
+                                      _buildTransformerCard(index);
+                                  final transformShoe =
+                                      _buildTransformShoe(index);
 
-                                      //card animation
-                                      final t = index - _pageNotifier.value;
-                                      final rotationY = lerpDouble(0, 90, t);
-                                      final translationX = lerpDouble(
-                                          0, -50, t); //move offscreen left
-                                      final scale = lerpDouble(0, -0.02, t);
-
-                                      //shoe animation
-                                      final shoeRotationZ =
-                                          lerpDouble(0, -45, t);
-                                      final shoeTranslationX =
-                                          lerpDouble(0, -150, t);
-
-                                      //transform container
-                                      final transform = Matrix4.identity()
-                                        ..setEntry(3, 2, 0.001)
-                                        ..translate(translationX)
-                                        ..scale(1 - scale)
-                                        ..rotateY(vector.radians(rotationY));
-
-                                      //transform shoe
-                                      final transformShoe = Matrix4.identity()
-                                        ..setEntry(3, 2, 0.001)
-                                        ..translate(shoeTranslationX)
-                                        ..rotateZ(
-                                            vector.radians(shoeRotationZ));
-
-                                      return Transform(
-                                        alignment: Alignment.center,
-                                        // alignment: ,
-                                        transform: transform,
+                                  return Transform(
+                                    alignment: Alignment.center,
+                                    // alignment: ,
+                                    transform: transform,
+                                    child: Container(
+                                      height: 500,
+                                      width: 500,
+                                      child: Align(
                                         child: Card(
                                           elevation: 8,
                                           shape: RoundedRectangleBorder(
@@ -291,12 +265,16 @@ class _ColumnBodyState extends State<ColumnBody> {
                                                 BorderRadius.circular(20),
                                           ),
                                           color: shoes[index].color,
+                                          child: SizedBox(
+                                            height: 270,
+                                            width: 250,
+                                          ),
                                         ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],
@@ -418,5 +396,41 @@ class _ColumnBodyState extends State<ColumnBody> {
         },
       ),
     );
+  }
+
+  Matrix4 _buildTransformerCard(int index) {
+    //t is the 'time' or the speed for the animation
+    //lerp double uses a + (b - a) * t;
+
+    //card animation
+    final t = index - _pageNotifier.value;
+    final rotationY = lerpDouble(0, 90, t);
+    final translationX = lerpDouble(0, -50, t); //move offscreen left
+    final scale = lerpDouble(0, -0.02, t);
+
+    //transform container
+    final transform = Matrix4.identity()
+      ..setEntry(3, 2, 0.001)
+      ..translate(translationX)
+      ..scale(1 - scale)
+      ..rotateY(vector.radians(rotationY));
+
+    return transform;
+  }
+
+  Matrix4 _buildTransformShoe(int index) {
+    final t = index - _pageNotifier.value;
+
+    //shoe animation
+    final shoeRotationZ = lerpDouble(0, -45, t);
+    final shoeTranslationX = lerpDouble(0, -150, t);
+
+    //transform shoe
+    final transformShoe = Matrix4.identity()
+      ..setEntry(3, 2, 0.001)
+      ..translate(shoeTranslationX)
+      ..rotateZ(vector.radians(shoeRotationZ));
+
+    return transformShoe;
   }
 }
