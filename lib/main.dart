@@ -233,48 +233,40 @@ class _ColumnBodyState extends State<ColumnBody> {
                           Positioned(
                             left: 0,
                             top: 50,
+                            width: size.maxWidth,
+                            height: 250,
                             // left: constraints.maxWidth * 0.2,
                             // top: constraints.maxHeight
                             // width: constraints.maxWidth * 0.8,
                             // height: constraints.maxHeight,
 
-                            child: Container(
-                              width: size.maxWidth,
-                              height: 270,
-                              child: PageView.builder(
-                                controller: _pageController,
-                                itemCount: shoes.length,
-                                itemBuilder: (context, index) {
-                                  final transform =
-                                      _buildTransformerCard(index);
-                                  final transformShoe =
-                                      _buildTransformShoe(index);
+                            child: PageView.builder(
+                              controller: _pageController,
+                              itemCount: shoes.length,
+                              itemBuilder: (context, index) {
+                                final transform = _buildTransformerCard(index);
+                                final transformShoe =
+                                    _buildTransformShoe(index);
 
-                                  return Transform(
-                                    alignment: Alignment.center,
-                                    // alignment: ,
-                                    transform: transform,
-                                    child: Container(
-                                      height: 500,
-                                      width: 500,
-                                      child: Align(
-                                        child: Card(
-                                          elevation: 8,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          color: shoes[index].color,
-                                          child: SizedBox(
-                                            height: 270,
-                                            width: 250,
-                                          ),
-                                        ),
+                                return Transform(
+                                  alignment: Alignment.center,
+                                  // alignment: ,
+                                  transform: transform,
+                                  child: Align(
+                                    child: Card(
+                                      elevation: 8,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      color: shoes[index].color,
+                                      child: SizedBox(
+                                        height: 270,
+                                        width: 250,
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],
