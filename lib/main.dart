@@ -81,11 +81,23 @@ class MyApp extends StatelessWidget {
         style: GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.bold),
       ),
       actions: [
-        CircleAvatar(child: Icon(Icons.search)),
+        CircleAvatar(
+          backgroundColor: Colors.grey[200],
+          child: Icon(
+            Icons.search,
+            color: Colors.black,
+          ),
+        ),
         SizedBox(
           width: 18.0,
         ),
-        CircleAvatar(child: Icon(Icons.notifications_none)),
+        CircleAvatar(
+          backgroundColor: Colors.grey[200],
+          child: Icon(
+            Icons.notifications_none,
+            color: Colors.black,
+          ),
+        ),
       ],
     );
   }
