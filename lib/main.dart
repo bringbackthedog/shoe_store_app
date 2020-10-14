@@ -4,6 +4,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final _pageController = PageController(viewportFraction: 0.88);
+final _pageNotifier = ValueNotifier(0.0);
 const brands = [
   'Nike',
   'Adidas',
@@ -146,10 +148,29 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class ColumnBody extends StatelessWidget {
+class ColumnBody extends StatefulWidget {
   const ColumnBody({
     Key key,
   }) : super(key: key);
+
+  @override
+  _ColumnBodyState createState() => _ColumnBodyState();
+}
+
+class _ColumnBodyState extends State<ColumnBody> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _pageController.addListener(_listener);
+    });
+    super.initState();
+  }
+
+  void _listener() {
+    _pageNotifier.value = _pageController.page;
+    // log(_pageNotifier.value.toString());
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,13 +244,21 @@ class ColumnBody extends StatelessWidget {
                                 Container(
                                   height: 270,
                                   width: 230,
-                                  child: Card(
-                                    elevation: 8,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    // child: const SizedBox.expand()
-                                    // child: Text('Column2'),
+                                  child: PageView.builder(
+                                    controller: _pageController,
+                                    itemCount: shoes.length,
+                                    itemBuilder: (context, index) {
+                                      final t = index - _pageNotifier.value;
+
+                                      return Card(
+                                        elevation: 8,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        color: shoes[index].color,
+                                      );
+                                    },
                                   ),
                                 ),
                               ],
