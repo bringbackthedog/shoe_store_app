@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'dart:math' as math;
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vector_math/vector_math.dart' as vector;
 
 final _pageController = PageController(viewportFraction: 0.88);
 final _pageNotifier = ValueNotifier(0.0);
@@ -243,20 +245,53 @@ class _ColumnBodyState extends State<ColumnBody> {
                               children: [
                                 Container(
                                   height: 270,
-                                  width: 230,
+                                  width: 250,
                                   child: PageView.builder(
                                     controller: _pageController,
                                     itemCount: shoes.length,
                                     itemBuilder: (context, index) {
-                                      final t = index - _pageNotifier.value;
+                                      //t is the 'time' or the speed for the animation
+                                      //lerp double uses a + (b - a) * t;
 
-                                      return Card(
-                                        elevation: 8,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                      //card animation
+                                      final t = index - _pageNotifier.value;
+                                      final rotationY = lerpDouble(0, 90, t);
+                                      final translationX = lerpDouble(
+                                          0, -50, t); //move offscreen left
+                                      final scale = lerpDouble(0, -0.02, t);
+
+                                      //shoe animation
+                                      final shoeRotationZ =
+                                          lerpDouble(0, -45, t);
+                                      final shoeTranslationX =
+                                          lerpDouble(0, -150, t);
+
+                                      //transform container
+                                      final transform = Matrix4.identity()
+                                        ..setEntry(3, 2, 0.001)
+                                        ..translate(translationX)
+                                        ..scale(1 - scale)
+                                        ..rotateY(vector.radians(rotationY));
+
+                                      //transform shoe
+                                      final transformShoe = Matrix4.identity()
+                                        ..setEntry(3, 2, 0.001)
+                                        ..translate(shoeTranslationX)
+                                        ..rotateZ(
+                                            vector.radians(shoeRotationZ));
+
+                                      return Transform(
+                                        alignment: Alignment.center,
+                                        // alignment: ,
+                                        transform: transform,
+                                        child: Card(
+                                          elevation: 8,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          color: shoes[index].color,
                                         ),
-                                        color: shoes[index].color,
                                       );
                                     },
                                   ),
